@@ -40,14 +40,14 @@ st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora
 st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
 st.sidebar.write("----------------------------------------------------------------")
-st.sidebar.markdown(
-    """
-    ### Link dos Projetos em produção + GitHub
-    - PHP + SQlite = [Mortystock](https://mortystock.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/mortystock)
-    - Python + Flask = [Fake Pinterest](https://fakepinterest.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/sitecompython)
-    - HTML + CSS + JS = [Calculadora de Precificação](https://calculadoraprecificacao.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/dashtransforma)
-    """
-)
+# st.sidebar.markdown(
+#     """
+#     ### Link dos Projetos em produção + GitHub
+#     - PHP + SQlite = [Mortystock](https://mortystock.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/mortystock)
+#     - Python + Flask = [Fake Pinterest](https://fakepinterest.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/sitecompython)
+#     - HTML + CSS + JS = [Calculadora de Precificação](https://calculadoraprecificacao.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/dashtransforma)
+#     """
+# )
 st.sidebar.markdown(
      """
      ### Outros Projetos no GitHub
@@ -78,7 +78,7 @@ with col2:
 
 st.write("----------------------------------------------------------------")
 
-st.markdown("<h3 style='text-align: center; padding: 10px;'>Contatos</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; padding: 10px;'>Projetos</h3>", unsafe_allow_html=True)
 
 
 st.write("----------------------------------------------------------------")
@@ -88,28 +88,28 @@ st.write("----------------------------------------------------------------")
 botao_linkedin, botao_github, botao_instagram, botao_whats = st.columns(4)
 
 with botao_linkedin:
-    if st.button("LinkedIn"):
-        webbrowser.open_new_tab(url_linkedin)
+    if st.button("Mortystock"):
+        st.page_link(page = "pages/mortystock.py", label = "IR até a Página")
 with botao_github:
-    if st.button("GitHub"):
-        webbrowser.open_new_tab(url_github)
+    if st.button("Fake Pinterest"):
+        st.page_link(page = "pages/fakepinterest.py", label = "IR até a Página")
 with botao_instagram:
-    if st.button("Instagram"):
-        webbrowser.open_new_tab(url_instagram)
+    if st.button("Calc. Precificação"):
+        st.page_link(page = "pages/calculadoraprecificacao.py", label = "IR até a Página")
 with botao_whats:
-    if st.button("WhatsApp"):
-        webbrowser.open_new_tab(url_whatsapp)
+    if st.button("Curriculo com IA"):
+        st.page_link(page = "pages/curriculoia.py", label = "IR até a Página")
 
-# st.sidebar.markdown(
-#     """
-#     ### Contatos:
-#     - [LinkedIn](https://www.linkedin.com/in/ronaldo-medeiros-aa33881b9/)
-#     - [GitHub]("https://github.com/ronaldmedeiiros)
-#     - [Instagram](https://www.instagram.com/ronaldmedeiiros/)
-#     - [E-mail](ronaldmedeiiros@gmail.com)
-#     - [WhatsApp](https://whatsa.me/5567981289537/?t=Ol%C3%A1,%20vim%20do%20Portf%C3%B3lio.%20Podemos%20conversar?)
-#     """
-# )
+st.sidebar.markdown(
+    """
+    ### Contatos:
+    - [LinkedIn](https://www.linkedin.com/in/ronaldo-medeiros-aa33881b9/)
+    - [GitHub]("https://github.com/ronaldmedeiiros)
+    - [Instagram](https://www.instagram.com/ronaldmedeiiros/)
+    - [E-mail](ronaldmedeiiros@gmail.com)
+    - [WhatsApp](https://whatsa.me/5567981289537/?t=Ol%C3%A1,%20vim%20do%20Portf%C3%B3lio.%20Podemos%20conversar?)
+    """
+)
 
 
 
