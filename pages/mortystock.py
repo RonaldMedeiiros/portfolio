@@ -1,6 +1,22 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="Mortystock",
+    page_icon="®️",
+)
+
+st.markdown("""
+    <style>
+        /* Esconde o botão de Deploy */
+        [data-testid="stToolbar"] {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown("<h1 style='text-align: center; padding: 10px;'>Mortystock</h1>", unsafe_allow_html=True)
+
+st.write("----------------------------------------------------------------")
 
 st.markdown(""" <p style='text-align: center;'><a style=text-decoration: none; href="https://mortystock.mosetech.com.br";'> https://mortystock.mosetech.com.br </a> - <a style=text-decoration: none; href="https://github.com/ronaldmedeiiros/mortystock";'> https://github.com/ronaldmedeiiros/mortystock </a>""", unsafe_allow_html=True)
 st.markdown("""<img src="https://i.ibb.co/C3nXQzxb/mortystock.png" alt="mortystock" border="0">""", unsafe_allow_html=True)
@@ -16,6 +32,7 @@ st.sidebar.page_link(page="home.py", label="Home")
 st.sidebar.page_link(page="pages/mortystock.py", label="Mortystock")
 st.sidebar.page_link(page="pages/fakepinterest.py", label="Fake Pinterest")
 st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora de Precificação")
+st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
 st.sidebar.write("----------------------------------------------------------------")
 

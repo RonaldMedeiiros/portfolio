@@ -7,11 +7,21 @@ url_instagram = 'https://www.instagram.com/ronaldmedeiiros/'
 url_whatsapp = 'https://whatsa.me/5567981289537/?t=Ol%C3%A1,%20vim%20do%20Portf%C3%B3lio.%20Podemos%20conversar?'
 email = 'ronaldmedeiiros@gmail.com'
 
-
 st.set_page_config(
     page_title="Portfólio Ronaldo Medeiros",
     page_icon="®️",
 )
+
+
+st.markdown("""
+    <style>
+        /* Esconde o botão de Deploy */
+        [data-testid="stToolbar"] {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.sidebar.title("Página dos Projetos")
 st.sidebar.write("")
 
@@ -27,6 +37,7 @@ st.markdown("""
 st.sidebar.page_link(page="pages/mortystock.py", label="Mortystock")
 st.sidebar.page_link(page="pages/fakepinterest.py", label="Fake Pinterest")
 st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora de Precificação")
+st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
 st.sidebar.write("----------------------------------------------------------------")
 st.sidebar.markdown(

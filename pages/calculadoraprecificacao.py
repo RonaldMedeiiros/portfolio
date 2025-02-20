@@ -1,6 +1,22 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="Calculadora de Precificação",
+    page_icon="®️",
+)
+
+st.markdown("""
+    <style>
+        /* Esconde o botão de Deploy */
+        [data-testid="stToolbar"] {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown("<h1 style='text-align: center; padding: 10px;'>Calculadora de Precificação</h1>", unsafe_allow_html=True)
+
+st.write("----------------------------------------------------------------")
 
 st.markdown("""
     <style>
@@ -13,6 +29,7 @@ st.sidebar.page_link(page="home.py", label="Home")
 st.sidebar.page_link(page="pages/mortystock.py", label="Mortystock")
 st.sidebar.page_link(page="pages/fakepinterest.py", label="Fake Pinterest")
 st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora de Precificação")
+st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
 st.sidebar.write("----------------------------------------------------------------")
 
