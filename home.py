@@ -88,17 +88,13 @@ st.write("----------------------------------------------------------------")
 botao_linkedin, botao_github, botao_instagram, botao_whats = st.columns(4)
 
 with botao_linkedin:
-    if st.button("Mortystock"):
-        st.page_link(page = "pages/mortystock.py", label = "IR até a Página")
+        st.page_link(page = "pages/mortystock.py", label = "Mortystock")
 with botao_github:
-    if st.button("Fake Pinterest"):
-        st.page_link(page = "pages/fakepinterest.py", label = "IR até a Página")
+        st.page_link(page = "pages/fakepinterest.py", label = "Fake Pinterest")
 with botao_instagram:
-    if st.button("Calc. Precificação"):
-        st.page_link(page = "pages/calculadoraprecificacao.py", label = "IR até a Página")
+        st.page_link(page = "pages/calculadoraprecificacao.py", label = "Calc. Precificação")
 with botao_whats:
-    if st.button("Curriculo com IA"):
-        st.page_link(page = "pages/curriculoia.py", label = "IR até a Página")
+        st.page_link(page = "pages/curriculoia.py", label = "Curriculo com IA")
 
 st.sidebar.markdown(
     """
