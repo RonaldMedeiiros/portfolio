@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: portfolio_app
+    ports:
+      - "8501:8501" # Mapeia a porta 8501 do container para a porta 8501 da VPS (para acesso direto, se necessário)
+    environment:
+      - PYTHONUNBUFFERED=1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portfolio.rule=Host(`portfolio.mosetech.com.br`)"
+      - "traefik.http.routers.portfolio.entrypoints=websecure"
+      - "traefik.http.routers.portfolio.tls.certresolver=myresolver"
+    networks:
+      - traefik_network
+    restart: always
+
+networks:
+  traefik_network:
+    external: true
