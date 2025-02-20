@@ -94,31 +94,3 @@ python main.py
 Aplicação feita junto com o Curso da Hashtag, porém com algumas atualizações pois os módulos estavam desatualizados.""", unsafe_allow_html=True)
 
 
-footer="""<style>
-a:link , a:visited{
-color: #8daec3;
-text-decoration: none;
-background-color: transparent;
-}
-
-a:hover,  a:active {
-color: red;
-background-color: transparent;
-text-decoration: underline;
-}
-
-.footer {
-position: fixed;
-left: 0;
-bottom: 0;
-width: 100%;
-color: white;
-text-align: center;
-background-color: #101414;
-}
-</style>
-<div class="footer">
-<p><a style='display: block; text-align: center; text-decoration: none' href="https://www.linkedin.com/in/ronaldo-medeiros-aa33881b9/" target="_blank">Desenvolvido com streamlit.io por Ronaldo de Souza Medeiros</a></p>
-</div>
-"""
-st.markdown(footer,unsafe_allow_html=True)
