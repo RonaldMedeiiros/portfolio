@@ -1,13 +1,13 @@
 import streamlit as st
-import os
+import time
+from openai import OpenAI
 from decouple import config
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_core.prompts import ChatPromptTemplate
 
-client = OpenAI(os.getenv("OPENAI_API_KEY"))
+api_key         = config("OPENAI_API_KEY")
+assistant_id    = config("OPENAI_ASSISTANT_ID")
 
 st.set_page_config(
-    page_title="Curriculo com IA",
+    page_title="Currículo com IA",
     page_icon="®️",
 )
 
@@ -17,119 +17,103 @@ st.markdown("""
         [data-testid="stToolbar"] {
             display: none !important;
         }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center; padding: 10px;'>Currículo com IA </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; padding: 10px;'>Currículo com IA</h1>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center;'>Baixe o PDF após digitar sua pergunta sobre o currículo do Ronaldo Medeiros!</h4>", unsafe_allow_html=True)
+
+with open("curriculo.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+
 
 st.write("----------------------------------------------------------------")
 
-st.markdown("""
-    <style>
-        [data-testid="stSidebarNav"] ul {
+st.markdown(
+    """
+    <style>[data-testid="stSidebarNav"] ul {
             display: none;
         }
     </style>
     """, unsafe_allow_html=True)
+
 st.sidebar.page_link(page="home.py", label="Home")
 st.sidebar.page_link(page="pages/mortystock.py", label="Mortystock")
 st.sidebar.page_link(page="pages/fakepinterest.py", label="Fake Pinterest")
 st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora de Precificação")
 st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
-system_prompt = '''
-    "Olá! Meu nome é MOSER e sou o assistente virtual da Mosetech. Estou aqui para apresentar o perfil profissional de Ronaldo Medeiros e fornecer informações sobre sua experiência e habilidades. Como posso te ajudar?"
-    ⚠ Importante: O MOSER somente pode responder perguntas relacionadas ao currículo de Ronaldo Medeiros, suas experiências profissionais, habilidades, certificações e informações de contato. Qualquer outro assunto fora desse contexto não será respondido.
 
-    📌 Informações Pessoais
-    Nome: Ronaldo de Souza Medeiros
-    Cidade: Três Lagoas/MS
-    WhatsApp: https://whatsa.me/5567981289537
-    E-mail: ronaldmedeiiros@gmail.com
+@st.cache_resource
+def load_openai_client_and_assistant():
+    client          = OpenAI(api_key=api_key)
+    my_assistant    = client.beta.assistants.retrieve(assistant_id)
+    thread          = client.beta.threads.create()
 
-    🎯 Objetivo
-    Contribuir para o crescimento da empresa por meio de soluções tecnológicas inovadoras, aprimorando constantemente minhas habilidades e entregando resultados com eficiência.
+    return client , my_assistant, thread
 
-    💼 Experiência Profissional
-    Desenvolvedor Jr - Transforma Empresas (Jan/2024 - Dez/2024)
+client,  my_assistant, assistant_thread = load_openai_client_and_assistant()
 
-    Desenvolvimento de aplicações com PHP, Python e Node.js.
-    Criação e manutenção de APIs para integração de sistemas.
-    Otimização de fluxos internos e processos empresariais.
-    Suporte N2 - Kikker Soluções Empresariais (Mar/2024 - Dez/2024)
+def wait_on_run(run, thread):
+    while run.status == "queued" or run.status == "in_progress":
+        run = client.beta.threads.runs.retrieve(
+            thread_id=thread.id,
+            run_id=run.id,
+        )
+        time.sleep(0.5)
+    return run
 
-    Análise de dados utilizando SQL e Linux.
-    Suporte técnico avançado e otimização de processos internos.
-    Coleta e análise de dados relacionados a produtos e estoques.
-    Suporte N2 - Evolutto Software (Dez/2021 - Dez/2023)
+def get_assistant_response(user_input=""):
 
-    Atendimento ao cliente via chamados, Cliq Zoho e WhatsApp.
-    Consultas e edições em bancos de dados MySQL.
-    Resolução de bugs simples e intermediários e testes de qualidade.
-    Outras experiências incluem:
+    message = client.beta.threads.messages.create(
+        thread_id=assistant_thread.id,
+        role="user",
+        content=user_input,
+    )
 
-    Analista de Suporte - Athena Software (2020-2021)
-    Técnico em Informática - Rede Conectividade (2017-2019)
-    Técnico de Informática e Auxiliar Administrativo - Global Informática (2016-2016 | 2019-2020)
-    🎓 Formação Acadêmica
-    Tecnólogo em Análise e Desenvolvimento de Sistemas - IFMS (6º período - cursando)
-    Ensino Médio Completo
-    🛠️ Principais Habilidades
-    Linguagens: PHP, Python, Node.js, JavaScript, HTML/CSS
-    Bancos de Dados: MySQL, MongoDB, SQL Avançado
-    Sistemas Operacionais: Linux, Windows
-    Outros: Manutenção de hardware e redes, suporte técnico, automação de processos
-    📜 Certificações e Cursos
-    Certificações Alura:
-    Desenvolvimento Web com HTML/CSS
-    Modelagem de Bancos de Dados Relacionais
-    Kubernetes: Deployments, ConfigMaps e escalabilidade
-    Programação em PHP e MongoDB
-    Formação Python Orientado a Objetos.
-    Certificações Django Master:
-    Master IA com Python
-    Django para Iniciantes
-    Django para APIs
-    Django para Frontend
-    Outros Cursos:
-    Assistente Administrativo (SENAC, 2009)
-    Montagem e Manutenção de Microcomputadores (Microlins, 2010)
-    🔗 Exemplos de Projetos Desenvolvidos
-    FakePinterest (Flask/Python) – https://fakepinterest.mosetech.com.br
-    Repositório: https://github.com/ronaldmedeiiros/sitecompython
-    Calculadora de Precificação (HTML/CSS) – https://calculadoraprecificacao.mosetech.com.br
-    Mortystock (PHP/SQLite) – https://mortystock.mosetech.com.br
-    Repositório: https://github.com/ronaldmedeiiros/mortystock
-    📲 Entre em Contato
-    "Quer saber mais ou contratar os serviços de Ronaldo Medeiros? Entre em contato agora!"
-    WhatsApp: https://whatsa.me/5567981289537
-    E-mail: ronaldmedeiiros@gmail.com
+    run = client.beta.threads.runs.create(
+        thread_id=assistant_thread.id,
+        assistant_id=assistant_id,
+    )
 
-    ⚠ Lembrete: O MOSER somente pode responder sobre o currículo de Ronaldo Medeiros. Perguntas sobre outros assuntos não serão atendidas.
- 
-    '''
-model_options = [
-    'gpt-3.5-turbo',
-    'gpt-4',
-    'gpt-4-turbo',
-    'gpt-4o-mini',
-    'gpt-4o',
-]
-selected_model = st.sidebar.selectbox(
-    label='Selecione o modelo LLM',
-    options=model_options,
-)    
+    run = wait_on_run(run, assistant_thread)
+
+    messages = client.beta.threads.messages.list(
+        thread_id=assistant_thread.id, order="asc", after=message.id
+    )
+
+    return messages.data[0].content[0].text.value
 
 
-conversa = client.chat.completions.create(
-    model = selected_model,
-    messages = [
-        {"role": "system", "content": "Você é um bot."},
-        {"role": "user", "content": "Qual é o seu nome?"},
-        {"role": "system", "content": "Meu nome é GPT-3."},
-        {"role": "user", "content": "Qual é o seu objetivo?"},
-        {"role": "system", "content": "Meu objetivo é ajudar as pessoas a escreverem melhor."}
-    ]
-)
+if 'user_input' not in st.session_state:
+    st.session_state.user_input = ''
 
+def submit():
+    st.session_state.user_input = st.session_state.query
+    st.session_state.query = ''
+
+st.text_input("O que precisa saber sobre o currículo do Ronaldo Medeiros?", key='query', on_change=submit)
+
+user_input = st.session_state.user_input
+
+st.write("Você digitou: ", user_input)
+
+with st.spinner('Aguarde, estou processando sua solicitação...'):
+    if user_input:
+        resposta = get_assistant_response(user_input)
+        st.header('Assistente Mosetech', divider='orange')
+        st.markdown(resposta)
+        
+if user_input:
+    st.download_button(label="Download Currículo",
+                data=PDFbyte,
+                file_name="curriculo.pdf",
+                mime='application/octet-stream')
+else:
+    st.write("Aguardando sua pergunta...")
 
