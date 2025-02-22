@@ -105,10 +105,10 @@ st.text_input("O que precisa saber sobre o currículo do Ronaldo Medeiros?", key
 user_input = st.session_state.user_input
 
 st.write("Você digitou: ", user_input)
-logging.info(f'Usuário digitou: {user_input} às {current_time}')
 
 if user_input:
     with st.spinner('Aguarde, estou processando sua solicitação...'):
+        logging.info(f'Usuário digitou: {user_input} às {current_time}')
         resposta = st.session_state.response
         st.header('Assistente Mosetech', divider='orange')
         st.markdown(resposta)
