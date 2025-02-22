@@ -1,9 +1,14 @@
 import streamlit as st
+import logging
+from datetime import datetime
 
 st.set_page_config(
     page_title="Calculadora de Precificação",
     page_icon="®️",
 )
+logging.basicConfig(level=logging.INFO)
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+logging.info(f'Calculadora de Precificação acessada às {current_time}')
 
 st.markdown("""
     <style>

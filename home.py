@@ -1,5 +1,6 @@
 import streamlit as st
-import webbrowser
+import logging
+from datetime import datetime
 
 url_linkedin = 'https://www.linkedin.com/in/ronaldo-medeiros-aa33881b9/'
 url_github = 'https://github.com/ronaldmedeiiros'
@@ -12,6 +13,9 @@ st.set_page_config(
     page_icon="®️",
 )
 
+logging.basicConfig(level=logging.INFO)
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+logging.info(f'Portfólio acessado às {current_time}')
 
 st.markdown("""
     <style>

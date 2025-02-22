@@ -2,6 +2,9 @@ import streamlit as st
 import time
 from openai import OpenAI
 from decouple import config
+import logging
+from datetime import datetime
+
 
 api_key         = config("OPENAI_API_KEY")
 assistant_id    = config("OPENAI_ASSISTANT_ID")
@@ -10,6 +13,10 @@ st.set_page_config(
     page_title="Currículo com IA",
     page_icon="®️",
 )
+
+logging.basicConfig(level=logging.INFO)
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+logging.info(f'Currículo com IA acessado às {current_time}')
 
 st.markdown("""
     <style>
