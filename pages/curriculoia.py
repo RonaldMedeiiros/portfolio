@@ -5,9 +5,8 @@ from decouple import config
 import logging
 from datetime import datetime
 
-
-api_key         = config("OPENAI_API_KEY")
-assistant_id    = config("OPENAI_ASSISTANT_ID")
+api_key = config("OPENAI_API_KEY")
+assistant_id = config("OPENAI_ASSISTANT_ID")
 
 st.set_page_config(
     page_title="Currículo com IA",
@@ -38,11 +37,9 @@ st.markdown("<h4 style='text-align: center;'>Baixe o PDF após digitar sua pergu
 with open("curriculo.pdf", "rb") as pdf_file:
     PDFbyte = pdf_file.read()
 
-
 st.write("----------------------------------------------------------------")
 
-st.markdown(
-    """
+st.markdown("""
     <style>[data-testid="stSidebarNav"] ul {
             display: none;
         }
@@ -55,18 +52,15 @@ st.sidebar.page_link(page="pages/fakepinterest.py", label="Fake Pinterest")
 st.sidebar.page_link(page="pages/calculadoraprecificacao.py", label="Calculadora de Precificação")
 st.sidebar.page_link(page="pages/curriculoia.py", label="Currículo com IA")
 
-
 @st.cache_resource
 def load_openai_client_and_assistant():
-    client          = OpenAI(api_key=api_key)
-    my_assistant    = client.beta.assistants.retrieve(assistant_id)
-    thread          = client.beta.threads.create()
+    client = OpenAI(api_key=api_key)
+    my_assistant = client.beta.assistants.retrieve(assistant_id)
+    thread = client.beta.threads.create()
 
-    return client , my_assistant, thread
+    return client, my_assistant, thread
 
-client,  my_assistant, assistant_thread = load_openai_client_and_assistant()
-
-def wait_on_run(run, thread):
+def wait_on_run(client, run, thread):
     while run.status == "queued" or run.status == "in_progress":
         run = client.beta.threads.runs.retrieve(
             thread_id=thread.id,
@@ -76,7 +70,7 @@ def wait_on_run(run, thread):
     return run
 
 def get_assistant_response(user_input=""):
-
+    client, my_assistant, assistant_thread = load_openai_client_and_assistant()
     message = client.beta.threads.messages.create(
         thread_id=assistant_thread.id,
         role="user",
@@ -88,7 +82,7 @@ def get_assistant_response(user_input=""):
         assistant_id=assistant_id,
     )
 
-    run = wait_on_run(run, assistant_thread)
+    run = wait_on_run(client, run, assistant_thread)
 
     messages = client.beta.threads.messages.list(
         thread_id=assistant_thread.id, order="asc", after=message.id
@@ -96,31 +90,33 @@ def get_assistant_response(user_input=""):
 
     return messages.data[0].content[0].text.value
 
-
 if 'user_input' not in st.session_state:
     st.session_state.user_input = ''
+if 'response' not in st.session_state:
+    st.session_state.response = ''
 
 def submit():
     st.session_state.user_input = st.session_state.query
     st.session_state.query = ''
+    st.session_state.response = get_assistant_response(st.session_state.user_input)
 
 st.text_input("O que precisa saber sobre o currículo do Ronaldo Medeiros?", key='query', on_change=submit)
 
 user_input = st.session_state.user_input
 
 st.write("Você digitou: ", user_input)
+logging.info(f'Usuário digitou: {user_input} às {current_time}')
 
-with st.spinner('Aguarde, estou processando sua solicitação...'):
-    if user_input:
-        resposta = get_assistant_response(user_input)
+if user_input:
+    with st.spinner('Aguarde, estou processando sua solicitação...'):
+        resposta = st.session_state.response
         st.header('Assistente Mosetech', divider='orange')
         st.markdown(resposta)
-        
-if user_input:
-    st.download_button(label="Download Currículo",
-                data=PDFbyte,
-                file_name="curriculo.pdf",
-                mime='application/octet-stream')
-else:
-    st.write("Aguardando sua pergunta...")
+        logging.info(f'Assistente respondeu: {resposta} às {current_time}')
 
+        botao_clicado = st.download_button(label="Download Currículo",
+                                        data=PDFbyte,
+                                        file_name="curriculo.pdf",
+                                        mime='application/octet-stream')
+        if botao_clicado:
+            logging.info(f'Usuário baixou o currículo às {current_time}')
