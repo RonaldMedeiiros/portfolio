@@ -47,6 +47,16 @@ st.sidebar.markdown(
     - HTML + CSS + JS = [Calculadora de Precificação](https://calculadoraprecificacao.mosetech.com.br) - [GitHub](https://github.com/ronaldmedeiiros/dashtransforma)
     """
 )
+st.sidebar.write("----------------------------------------------------------------")
+st.sidebar.markdown(
+     """
+     ### Outros Projetos no GitHub
+    - ZapDocker - Node.js + WppConnect + API Openai: [GitHub](https://github.com/ronaldmedeiiros/zapdocker)
+    - Liberação de Alunos - Python + Flask (Em Construção): [GitHub](https://github.com/ronaldmedeiiros/sistemaliberacaoalunos)
+    - Filmes Paradigma (Trabalho Faculdade) - HTML + JS + CSS: [GitHub](https://github.com/ronaldredeiiros/filmesparadigma)
+    """
+)
+st.sidebar.write("----------------------------------------------------------------")
 
 st.markdown("""  
     ## 📖 Sobre o Projeto
