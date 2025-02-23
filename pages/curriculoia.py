@@ -15,7 +15,7 @@ st.set_page_config(
 
 logging.basicConfig(level=logging.INFO)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Currículo com IA acessado às {current_time}')
+logging.info(f'Currículo com IA acessado em {current_time}')
 
 st.markdown("""
     <style>
@@ -119,4 +119,4 @@ if user_input:
                                         file_name="curriculo.pdf",
                                         mime='application/octet-stream')
         if botao_clicado:
-            logging.info(f'Usuário baixou o currículo às {current_time}')
+            logging.info(f'Usuário baixou o currículo em {current_time}')

@@ -33,7 +33,7 @@ st.sidebar.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
 
 logging.basicConfig(level=logging.INFO)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Portfólio acessado às {current_time}')
+logging.info(f'Portfólio acessado em {current_time}')
 
 
 

@@ -9,7 +9,7 @@ st.set_page_config(
 
 logging.basicConfig(level=logging.INFO)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Mortystock acessado às {current_time}')
+logging.info(f'Mortystock acessado em {current_time}')
 
 st.markdown("""
     <style>

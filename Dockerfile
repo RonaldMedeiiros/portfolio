@@ -1,6 +1,17 @@
 # Use uma imagem base oficial do Python
 FROM python:3.9-slim
 
+# Defina o fuso horário para Campo Grande/MS
+ENV TZ=America/Campo_Grande
+
+# Configure o fuso horário no sistema
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Defina o diretório de trabalho no container
 WORKDIR /app
 

@@ -8,7 +8,7 @@ st.set_page_config(
 )
 logging.basicConfig(level=logging.INFO)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Calculadora de Precificação acessada às {current_time}')
+logging.info(f'Calculadora de Precificação acessada em {current_time}')
 
 st.markdown("""
     <style>
