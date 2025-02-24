@@ -7,6 +7,7 @@ ENV TZ=America/Campo_Grande
 # Configure o fuso horário no sistema
 RUN apt-get update && \
     apt-get install -y nano && \
+    apt-get install -y tail && \
     apt-get install -y tzdata && \
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
