@@ -31,18 +31,17 @@ st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
 st.sidebar.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
 
 
-home_log = logging.getLogger("home")
-home_log.setLevel(logging.INFO)
+home_log = logging.getLogger("portfolio")
+logging.basicConfig(level=logging.INFO)
 
-arquivo_log = logging.FileHandler('logs/home.log')
-arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-home_log.addHandler(arquivo_log)
-
-tempo_real = logging.StreamHandler()
-tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-home_log.addHandler(tempo_real)
+if not home_log.handlers:
+    arquivo_log = logging.FileHandler('logs/home.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    arquivo_log.setFormatter(formatter)
+    home_log.addHandler(arquivo_log)
+    
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-home_log.info(f'Portfolio acessado')
+home_log.info(f'Prtfolio acessado em {current_time}')
 
 
 st.markdown("""

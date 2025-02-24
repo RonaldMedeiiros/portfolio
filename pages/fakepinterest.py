@@ -6,18 +6,20 @@ st.set_page_config(
     page_title="Fake Pinterest",
     page_icon="®️",
 )
+
 fakepinterest_log = logging.getLogger("fakepinterest")
-fakepinterest_log.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
-arquivo_log = logging.FileHandler('logs/fakepinterest.log')
-arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-fakepinterest_log.addHandler(arquivo_log)
-
-tempo_real = logging.StreamHandler()
-tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-fakepinterest_log.addHandler(tempo_real)
+if not fakepinterest_log.handlers:
+    arquivo_log = logging.FileHandler('logs/fakepinterest.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    arquivo_log.setFormatter(formatter)
+    fakepinterest_log.addHandler(arquivo_log)
+    
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-fakepinterest_log.info(f'Fake Pinterest acessado')
+fakepinterest_log.info(f'Fake Pinterest acessado em {current_time}')
+
+
 
 st.markdown("""
     <style>

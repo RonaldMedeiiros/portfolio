@@ -8,17 +8,16 @@ st.set_page_config(
 )
 
 mortystock_log = logging.getLogger("mortystock")
-mortystock_log.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
-arquivo_log = logging.FileHandler('logs/mortystock.log')
-arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-mortystock_log.addHandler(arquivo_log)
-
-tempo_real = logging.StreamHandler()
-tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-mortystock_log.addHandler(tempo_real)
+if not mortystock_log.handlers:
+    arquivo_log = logging.FileHandler('logs/mortystock.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    arquivo_log.setFormatter(formatter)
+    mortystock_log.addHandler(arquivo_log)
+    
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-mortystock_log.info(f'Mortystock acessado')
+mortystock_log.info(f'Mortystock acessado em {current_time}')
 
 st.markdown("""
     <style>

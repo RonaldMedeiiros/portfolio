@@ -7,18 +7,17 @@ st.set_page_config(
     page_icon="®️",
 )
 
-dashtransforma_log = logging.getLogger("calculadoraprecificacao")
-dashtransforma_log.setLevel(logging.INFO)
+calculadora_log = logging.getLogger("calculadora")
+logging.basicConfig(level=logging.INFO)
 
-arquivo_log = logging.FileHandler('logs/calculadoraprecificacao.log')
-arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-dashtransforma_log.addHandler(arquivo_log)
-
-tempo_real = logging.StreamHandler()
-tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-dashtransforma_log.addHandler(tempo_real)
+if not calculadora_log.handlers:
+    arquivo_log = logging.FileHandler('logs/calculadoraprecificacao.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    arquivo_log.setFormatter(formatter)
+    calculadora_log.addHandler(arquivo_log)
+    
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-dashtransforma_log.info(f'Calculadora de Precificação acessada')
+calculadora_log.info(f'Calculadora acessada em {current_time}')
 
 st.markdown("""
     <style>

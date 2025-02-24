@@ -14,17 +14,16 @@ st.set_page_config(
 )
 
 curriculoia_log = logging.getLogger("curriculoia")
-curriculoia_log.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
-arquivo_log = logging.FileHandler('logs/curriculoia.log')
-arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-curriculoia_log.addHandler(arquivo_log)
-
-tempo_real = logging.StreamHandler()
-tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-curriculoia_log.addHandler(tempo_real)
+if not curriculoia_log.handlers:
+    arquivo_log = logging.FileHandler('logs/curriculoia.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    arquivo_log.setFormatter(formatter)
+    curriculoia_log.addHandler(arquivo_log)
+    
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-curriculoia_log.info(f'CurriculoIA acessado')
+curriculoia_log.info(f'Curriculo IA acessado em {current_time}')
 
 st.markdown("""
     <style>
@@ -128,15 +127,15 @@ st.write("Você digitou: ", user_input)
 
 if user_input:
     with st.spinner('Aguarde, estou processando sua solicitação...'):
-        logging.info(f'Usuário digitou: {user_input} às {current_time}')
+        curriculoia_log.info(f'Usuário digitou: {user_input} em {current_time}')
         resposta = st.session_state.response
         st.header('Assistente Mosetech', divider='orange')
         st.markdown(resposta)
-        logging.info(f'Assistente respondeu: {resposta} às {current_time}')
+        curriculoia_log.info(f'Assistente respondeu: {resposta} em {current_time}')
 
         botao_clicado = st.download_button(label="Download Currículo",
                                         data=PDFbyte,
                                         file_name="curriculo.pdf",
                                         mime='application/octet-stream')
         if botao_clicado:
-            logging.info(f'Usuário baixou o currículo em {current_time}')
+            curriculoia_log.info(f'Usuário baixou o currículo em {current_time}')
