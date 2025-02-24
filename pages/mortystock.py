@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon="®️",
 )
 
-mortystock_log = logging.getLogger("mortystock")
+mortystock_log = logging.getLogger("Mortystock")
 logging.basicConfig(level=logging.INFO)
 
 if not mortystock_log.handlers:
@@ -17,7 +17,7 @@ if not mortystock_log.handlers:
     mortystock_log.addHandler(arquivo_log)
     
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-mortystock_log.info(f'Mortystock acessado em {current_time}')
+mortystock_log.info(f' acessado em {current_time}')
 
 st.markdown("""
     <style>

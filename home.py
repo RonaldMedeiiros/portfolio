@@ -31,7 +31,7 @@ st.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
 st.sidebar.markdown(REMOVE_PADDING_FROM_SIDES, unsafe_allow_html=True)
 
 
-home_log = logging.getLogger("portfolio")
+home_log = logging.getLogger("Portfolio")
 logging.basicConfig(level=logging.INFO)
 
 if not home_log.handlers:
@@ -41,7 +41,7 @@ if not home_log.handlers:
     home_log.addHandler(arquivo_log)
     
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-home_log.info(f'Prtfolio acessado em {current_time}')
+home_log.info(f' acessado em {current_time}')
 
 
 st.markdown("""

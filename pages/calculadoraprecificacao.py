@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon="®️",
 )
 
-calculadora_log = logging.getLogger("calculadora")
+calculadora_log = logging.getLogger("Calculadora")
 logging.basicConfig(level=logging.INFO)
 
 if not calculadora_log.handlers:
@@ -17,7 +17,7 @@ if not calculadora_log.handlers:
     calculadora_log.addHandler(arquivo_log)
     
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-calculadora_log.info(f'Calculadora acessada em {current_time}')
+calculadora_log.info(f' acessada em {current_time}')
 
 st.markdown("""
     <style>

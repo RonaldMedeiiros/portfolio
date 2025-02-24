@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon="®️",
 )
 
-fakepinterest_log = logging.getLogger("fakepinterest")
+fakepinterest_log = logging.getLogger("Fake Pinterest")
 logging.basicConfig(level=logging.INFO)
 
 if not fakepinterest_log.handlers:
@@ -17,7 +17,7 @@ if not fakepinterest_log.handlers:
     fakepinterest_log.addHandler(arquivo_log)
     
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-fakepinterest_log.info(f'Fake Pinterest acessado em {current_time}')
+fakepinterest_log.info(f' acessado em {current_time}')
 
 
 

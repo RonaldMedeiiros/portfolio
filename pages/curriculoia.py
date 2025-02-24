@@ -13,7 +13,7 @@ st.set_page_config(
     page_icon="®️",
 )
 
-curriculoia_log = logging.getLogger("curriculoia")
+curriculoia_log = logging.getLogger("Curriculo IA")
 logging.basicConfig(level=logging.INFO)
 
 if not curriculoia_log.handlers:
@@ -23,7 +23,7 @@ if not curriculoia_log.handlers:
     curriculoia_log.addHandler(arquivo_log)
     
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-curriculoia_log.info(f'Curriculo IA acessado em {current_time}')
+curriculoia_log.info(f' acessado em {current_time}')
 
 st.markdown("""
     <style>
