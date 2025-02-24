@@ -7,9 +7,18 @@ st.set_page_config(
     page_icon="®️",
 )
 
-logging.basicConfig(level=logging.INFO)
+mortystock_log = logging.getLogger("mortystock")
+mortystock_log.setLevel(logging.INFO)
+
+arquivo_log = logging.FileHandler('logs/mortystock.log')
+arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+mortystock_log.addHandler(arquivo_log)
+
+tempo_real = logging.StreamHandler()
+tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+mortystock_log.addHandler(tempo_real)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Mortystock acessado em {current_time}')
+mortystock_log.info(f'Mortystock acessado')
 
 st.markdown("""
     <style>

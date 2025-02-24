@@ -13,9 +13,18 @@ st.set_page_config(
     page_icon="®️",
 )
 
-logging.basicConfig(level=logging.INFO)
+curriculoia_log = logging.getLogger("curriculoia")
+curriculoia_log.setLevel(logging.INFO)
+
+arquivo_log = logging.FileHandler('logs/curriculoia.log')
+arquivo_log.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+curriculoia_log.addHandler(arquivo_log)
+
+tempo_real = logging.StreamHandler()
+tempo_real.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+curriculoia_log.addHandler(tempo_real)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-logging.info(f'Currículo com IA acessado em {current_time}')
+curriculoia_log.info(f'CurriculoIA acessado')
 
 st.markdown("""
     <style>
